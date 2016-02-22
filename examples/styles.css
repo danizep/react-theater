@@ -1,0 +1,10 @@
+/* BASIC STYLES */
+
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    margin: 35px;
+}
+
+h1, p {
+    color: #000;
+}

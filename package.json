@@ -1,0 +1,44 @@
+{
+  "name": "react-theater",
+  "version": "0.0.0",
+  "description": "A simple react gallery component for viewing any type of media...",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel src/Theater.jsx --out-file dist/Theater.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danizep/react-theater.git"
+  },
+  "keywords": [
+    "react",
+    "theater",
+    "gallery",
+    "photos",
+    "videos",
+    "lightbox"
+  ],
+  "author": "danizep",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/danizep/react-theater/issues"
+  },
+  "homepage": "https://github.com/danizep/react-theater#readme",
+  "peerDependencies": {
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.4.5",
+    "babel-loader": "^6.2.1",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
+    "css-loader": "^0.23.1",
+    "react": "^0.14.6",
+    "react-dom": "^0.14.6",
+    "sass-loader": "^3.1.2",
+    "style-loader": "^0.13.0",
+    "webpack": "^1.12.12"
+  }
+}
