@@ -1,3 +1,91 @@
 /* VARIABLES */
 
+$theater-backdrop-bg-color: rgba(0, 0, 0, 0.8) !default;
+
 /* THEATER STYLES */
+
+.theater-wrapper {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+
+  .theater-backdrop {
+    background: $theater-backdrop-bg-color;
+    width: inherit;
+    height: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .theater-close-button {
+      position: absolute;
+      top: 5px;
+      right: 10px;
+      color: white;
+      font-size: 30px;
+      cursor: pointer;
+    }
+
+    .theater-content-wrapper {
+      max-width: 90%;
+      max-height: 90%;
+      min-width: 1000px;
+      min-height: 500px;
+      background: blue;
+      width: 2000px;
+      height: 600px;
+
+      .theater-content, .theater-side-content {
+        height: inherit;
+        float: left;
+      }
+
+      .theater-content,{
+        width: 75%;
+        background: red;
+      }
+
+      .theater-side-content {
+        width: 25%;
+        background: yellow;
+      }
+    }
+  }
+}
+
+/* ARROW */
+svg {
+  padding: 5px;
+}
+
+.theater-nav-button {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  margin-top: -45px;
+  margin-left: -35px;
+  width: 70px;
+  height: 90px;
+
+  &.theater-nav-button--prev {
+    left: 42%;
+  }
+
+  &.theater-nav-button--next {
+    left: 58%;
+  }
+
+  &:hover, &:focus {
+    polyline {
+      stroke-width: 3;
+    }
+  }
+}
+
+polyline {
+  transition: all 250ms ease-in-out;
+}

@@ -19691,7 +19691,12 @@
 	        return {};
 	    },
 	    getDefaultProps: function getDefaultProps() {
-	        return {};
+	        return {
+	            onNext: null,
+	            onPrev: null,
+	            onOpen: null,
+	            onClose: null
+	        };
 	    },
 	    componentWillMount: function componentWillMount() {},
 	    componentWillUnmount: function componentWillUnmount() {},
@@ -19701,9 +19706,73 @@
 	            'div',
 	            { className: 'theater-wrapper' },
 	            _react2.default.createElement(
-	                'b',
-	                null,
-	                'theater - available soon'
+	                'div',
+	                { className: 'theater-backdrop', onClick: this._handleClose },
+	                _react2.default.createElement(
+	                    'a',
+	                    { className: 'theater-close-button', role: 'button', onClick: this._handleClose },
+	                    '×'
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'theater-content-wrapper' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'theater-content' },
+	                        this._getPrevButtonHtml(),
+	                        this._getNextButtonHtml(),
+	                        '...'
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'theater-side-content' },
+	                        '...'
+	                    )
+	                )
+	            )
+	        );
+	    },
+	    _handleNext: function _handleNext(e) {
+	        e.stopPropagation();
+	        this._runCallback('onNext', {});
+	    },
+	    _handlePrev: function _handlePrev(e) {
+	        e.stopPropagation();
+	        this._runCallback('onPrev', {});
+	    },
+	    _handleClose: function _handleClose() {
+	        this._runCallback('onClose', {});
+	    },
+	    _handleOpen: function _handleOpen() {
+	        this._runCallback('onOpen', {});
+	    },
+	    _runCallback: function _runCallback(callbackName, params) {
+	        console.log(callbackName);
+	        var callback = this.props[callbackName];
+
+	        if (callback !== null && typeof callback === 'function') {
+	            callback(params);
+	        }
+	    },
+	    _getPrevButtonHtml: function _getPrevButtonHtml() {
+	        return _react2.default.createElement(
+	            'a',
+	            { className: 'theater-nav-button theater-nav-button--prev', role: 'button', onClick: this._handlePrev },
+	            _react2.default.createElement(
+	                'svg',
+	                { width: '60px', height: '80px', viewBox: '0 0 50 80', xmlSpace: 'preserve' },
+	                _react2.default.createElement('polyline', { fill: 'none', stroke: '#fff', strokeWidth: '1', strokeLinecap: 'round', strokeLinejoin: 'round', points: '45.63,75.8 0.375,38.087 45.63,0.375 ' })
+	            )
+	        );
+	    },
+	    _getNextButtonHtml: function _getNextButtonHtml() {
+	        return _react2.default.createElement(
+	            'a',
+	            { className: 'theater-nav-button theater-nav-button--next', role: 'button', onClick: this._handleNext },
+	            _react2.default.createElement(
+	                'svg',
+	                { width: '60px', height: '80px', viewBox: '0 0 50 80', xmlSpace: 'preserve' },
+	                _react2.default.createElement('polyline', { fill: 'none', stroke: '#fff', strokeWidth: '1', strokeLinecap: 'round', strokeLinejoin: 'round', points: '0.375,0.375 45.63,38.087 0.375,75.8 ' })
 	            )
 	        );
 	    }
@@ -19746,7 +19815,7 @@
 
 
 	// module
-	exports.push([module.id, "/* VARIABLES */\n/* THEATER STYLES */\n", ""]);
+	exports.push([module.id, "/* VARIABLES */\n/* THEATER STYLES */\n.theater-wrapper {\n  margin: 0;\n  padding: 0;\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  top: 0;\n  left: 0; }\n  .theater-wrapper .theater-backdrop {\n    background: rgba(0, 0, 0, 0.8);\n    width: inherit;\n    height: inherit;\n    display: flex;\n    align-items: center;\n    justify-content: center; }\n    .theater-wrapper .theater-backdrop .theater-close-button {\n      position: absolute;\n      top: 5px;\n      right: 10px;\n      color: white;\n      font-size: 30px;\n      cursor: pointer; }\n    .theater-wrapper .theater-backdrop .theater-content-wrapper {\n      max-width: 90%;\n      max-height: 90%;\n      min-width: 1000px;\n      min-height: 500px;\n      background: blue;\n      width: 2000px;\n      height: 600px; }\n      .theater-wrapper .theater-backdrop .theater-content-wrapper .theater-content, .theater-wrapper .theater-backdrop .theater-content-wrapper .theater-side-content {\n        height: inherit;\n        float: left; }\n      .theater-wrapper .theater-backdrop .theater-content-wrapper .theater-content {\n        width: 75%;\n        background: red; }\n      .theater-wrapper .theater-backdrop .theater-content-wrapper .theater-side-content {\n        width: 25%;\n        background: yellow; }\n\n/* ARROW */\nsvg {\n  padding: 5px; }\n\n.theater-nav-button {\n  cursor: pointer;\n  position: absolute;\n  top: 50%;\n  margin-top: -45px;\n  margin-left: -35px;\n  width: 70px;\n  height: 90px; }\n  .theater-nav-button.theater-nav-button--prev {\n    left: 42%; }\n  .theater-nav-button.theater-nav-button--next {\n    left: 58%; }\n  .theater-nav-button:hover polyline, .theater-nav-button:focus polyline {\n    stroke-width: 3; }\n\npolyline {\n  transition: all 250ms ease-in-out; }\n", ""]);
 
 	// exports
 
