@@ -54,15 +54,17 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _Theater = __webpack_require__(159);
+	var _Wrapper = __webpack_require__(164);
 
-	var _Theater2 = _interopRequireDefault(_Theater);
+	var _Wrapper2 = _interopRequireDefault(_Wrapper);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	__webpack_require__(160);
 
-	_reactDom2.default.render(_react2.default.createElement(_Theater2.default, null), document.getElementById('example'));
+	var cats = ["http://cdn.grumpycats.com/wp-content/uploads/2016/01/10426136_963527260349678_715068149440486950_n-758x758.jpg", "http://cdn.grumpycats.com/wp-content/uploads/2016/02/12654647_974282002607537_7798179861389974677_n-758x758.jpg", "http://static4.businessinsider.com/image/5485631e69bedda63303ed51/grumpy-cat-has-earned-her-owner-nearly-100-million-in-just-2-years.jpg", "http://animalsadda.com/wp-content/uploads/2015/03/Grumpy-Cat-6.jpg", "http://dailytwocents.com/wp-content/uploads/2014/06/Grumpy_Cat.jpg", "http://static.ujnemzedek.hu/files/images/grumpy_cat_648x365_2360648079-hero.jpg", "http://jameshudnall.com/aa/wp-content/uploads/2016/02/gc.jpg", "http://cdn.grumpycats.com/wp-content/uploads/2012/10/DSC04268.jpg", "http://cdn.playbuzz.com/cdn/670de221-f178-4df3-85c9-12e20afdeb4c/0c86b6e0-2a69-4418-8774-358cb3d53007.jpg", "http://i.telegraph.co.uk/multimedia/archive/03344/Grumpycat_3344645b.jpg", "http://pixel.nymag.com/imgs/daily/intelligencer/2014/12/08/08-grumpy-cat.w1200.h630.jpg"];
+
+	_reactDom2.default.render(_react2.default.createElement(_Wrapper2.default, { items: cats }), document.getElementById('example'));
 
 /***/ },
 /* 1 */
@@ -19692,6 +19694,7 @@
 	    },
 	    getDefaultProps: function getDefaultProps() {
 	        return {
+	            isOpen: false,
 	            onNext: null,
 	            onPrev: null,
 	            onOpen: null,
@@ -19702,6 +19705,8 @@
 	    componentWillUnmount: function componentWillUnmount() {},
 	    componentDidMount: function componentDidMount() {},
 	    render: function render() {
+	        if (!this.props.isOpen) return null;
+
 	        return _react2.default.createElement(
 	            'div',
 	            { className: 'theater-wrapper' },
@@ -19709,19 +19714,19 @@
 	                'div',
 	                { className: 'theater-backdrop', onClick: this._handleClose },
 	                _react2.default.createElement(
-	                    'a',
-	                    { className: 'theater-close-button', role: 'button', onClick: this._handleClose },
-	                    '×'
-	                ),
-	                _react2.default.createElement(
 	                    'div',
-	                    { className: 'theater-content-wrapper' },
+	                    { className: 'theater-content-wrapper', onClick: this._handleStopPropagation },
+	                    _react2.default.createElement(
+	                        'a',
+	                        { className: 'theater-close-button', role: 'button', onClick: this._handleClose },
+	                        '×'
+	                    ),
 	                    _react2.default.createElement(
 	                        'div',
 	                        { className: 'theater-content' },
 	                        this._getPrevButtonHtml(),
 	                        this._getNextButtonHtml(),
-	                        '...'
+	                        _react2.default.cloneElement(this.props.children, { item: this.props.items[this.props.currentItem] })
 	                    ),
 	                    _react2.default.createElement(
 	                        'div',
@@ -19775,6 +19780,9 @@
 	                _react2.default.createElement('polyline', { fill: 'none', stroke: '#fff', strokeWidth: '1', strokeLinecap: 'round', strokeLinejoin: 'round', points: '0.375,0.375 45.63,38.087 0.375,75.8 ' })
 	            )
 	        );
+	    },
+	    _handleStopPropagation: function _handleStopPropagation(e) {
+	        e.stopPropagation();
 	    }
 	});
 
@@ -19815,7 +19823,7 @@
 
 
 	// module
-	exports.push([module.id, "/* VARIABLES */\n/* THEATER STYLES */\n.theater-wrapper {\n  margin: 0;\n  padding: 0;\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  top: 0;\n  left: 0; }\n  .theater-wrapper .theater-backdrop {\n    background: rgba(0, 0, 0, 0.8);\n    width: inherit;\n    height: inherit;\n    display: flex;\n    align-items: center;\n    justify-content: center; }\n    .theater-wrapper .theater-backdrop .theater-close-button {\n      position: absolute;\n      top: 5px;\n      right: 10px;\n      color: white;\n      font-size: 30px;\n      cursor: pointer; }\n    .theater-wrapper .theater-backdrop .theater-content-wrapper {\n      max-width: 90%;\n      max-height: 90%;\n      min-width: 1000px;\n      min-height: 500px;\n      background: blue;\n      width: 2000px;\n      height: 600px; }\n      .theater-wrapper .theater-backdrop .theater-content-wrapper .theater-content, .theater-wrapper .theater-backdrop .theater-content-wrapper .theater-side-content {\n        height: inherit;\n        float: left; }\n      .theater-wrapper .theater-backdrop .theater-content-wrapper .theater-content {\n        width: 75%;\n        background: red; }\n      .theater-wrapper .theater-backdrop .theater-content-wrapper .theater-side-content {\n        width: 25%;\n        background: yellow; }\n\n/* ARROW */\nsvg {\n  padding: 5px; }\n\n.theater-nav-button {\n  cursor: pointer;\n  position: absolute;\n  top: 50%;\n  margin-top: -45px;\n  margin-left: -35px;\n  width: 70px;\n  height: 90px; }\n  .theater-nav-button.theater-nav-button--prev {\n    left: 42%; }\n  .theater-nav-button.theater-nav-button--next {\n    left: 58%; }\n  .theater-nav-button:hover polyline, .theater-nav-button:focus polyline {\n    stroke-width: 3; }\n\npolyline {\n  transition: all 250ms ease-in-out; }\n", ""]);
+	exports.push([module.id, "/* VARIABLES */\n/* THEATER STYLES */\n.theater-wrapper {\n  margin: 0;\n  padding: 0;\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  top: 0;\n  left: 0; }\n  .theater-wrapper .theater-backdrop {\n    background: rgba(0, 0, 0, 0.9);\n    width: inherit;\n    height: inherit;\n    display: flex;\n    align-items: center;\n    justify-content: center; }\n    .theater-wrapper .theater-backdrop .theater-close-button {\n      position: absolute;\n      top: 5px;\n      right: 10px;\n      color: white;\n      font-size: 30px;\n      cursor: pointer; }\n    .theater-wrapper .theater-backdrop .theater-content-wrapper {\n      max-width: 90%;\n      max-height: 800px;\n      min-width: 900px;\n      min-height: 500px;\n      background: blue; }\n      .theater-wrapper .theater-backdrop .theater-content-wrapper .theater-content, .theater-wrapper .theater-backdrop .theater-content-wrapper .theater-side-content {\n        height: 100%;\n        float: left;\n        min-height: inherit;\n        max-height: inherit; }\n      .theater-wrapper .theater-backdrop .theater-content-wrapper .theater-content {\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        position: relative;\n        width: 75%;\n        background: black;\n        overflow: hidden;\n        -webkit-user-select: none;\n        -moz-user-select: none;\n        -ms-user-select: none;\n        user-select: none; }\n        .theater-wrapper .theater-backdrop .theater-content-wrapper .theater-content img {\n          max-width: 100%;\n          max-height: inherit; }\n      .theater-wrapper .theater-backdrop .theater-content-wrapper .theater-side-content {\n        width: 25%;\n        background: #f4ff10; }\n\n/* ARROW */\nsvg {\n  padding: 5px; }\n\n.theater-nav-button {\n  display: flex;\n  align-items: center;\n  cursor: pointer;\n  position: absolute;\n  stroke: white;\n  height: 100%;\n  width: 50%; }\n  .theater-nav-button.theater-nav-button--prev {\n    left: 0;\n    justify-content: flex-start; }\n  .theater-nav-button.theater-nav-button--next {\n    right: 0;\n    justify-content: flex-end; }\n  .theater-nav-button:hover polyline, .theater-nav-button:focus polyline {\n    stroke-width: 3; }\n\npolyline {\n  transition: all 200ms ease-in-out; }\n", ""]);
 
 	// exports
 
@@ -20129,6 +20137,129 @@
 			URL.revokeObjectURL(oldSrc);
 	}
 
+
+/***/ },
+/* 164 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(158);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _Theater = __webpack_require__(159);
+
+	var _Theater2 = _interopRequireDefault(_Theater);
+
+	var _TheaterImage = __webpack_require__(165);
+
+	var _TheaterImage2 = _interopRequireDefault(_TheaterImage);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Wrapper = _react2.default.createClass({
+	    displayName: 'Wrapper',
+	    getInitialState: function getInitialState() {
+	        return {
+	            isOpen: false,
+	            items: this.props.items,
+	            currentItem: 0
+	        };
+	    },
+	    componentWillMount: function componentWillMount() {},
+	    componentWillUnmount: function componentWillUnmount() {},
+	    componentDidMount: function componentDidMount() {},
+	    render: function render() {
+	        var _this = this;
+
+	        return _react2.default.createElement(
+	            'div',
+	            null,
+	            _react2.default.createElement(
+	                _Theater2.default,
+	                _extends({}, this.state, { onClose: this._handleClose, onNext: this._handleNext, onPrev: this._handlePrev }),
+	                _react2.default.createElement(_TheaterImage2.default, null)
+	            ),
+	            this.props.items.map(function (item, key) {
+	                console.log(key, item);
+	                return _react2.default.createElement('img', { src: item,
+	                    className: 'cat',
+	                    key: 'cat' + key,
+	                    onClick: _this._handleOpen.bind(_this, key) });
+	            })
+	        );
+	    },
+	    _handleNext: function _handleNext() {
+	        var currentItem = this.state.currentItem + 1 >= this.props.items.length ? 0 : this.state.currentItem + 1;
+
+	        this.setState({
+	            currentItem: currentItem
+	        });
+	    },
+	    _handlePrev: function _handlePrev() {
+	        var currentItem = this.state.currentItem - 1 < 0 ? this.props.items.length - 1 : this.state.currentItem - 1;
+
+	        this.setState({
+	            currentItem: currentItem
+	        });
+	    },
+	    _handleClose: function _handleClose() {
+	        this.setState({ isOpen: false });
+	    },
+	    _handleOpen: function _handleOpen(currentItem) {
+	        this.setState({
+	            isOpen: true,
+	            currentItem: currentItem
+	        });
+	    }
+	});
+
+	exports.default = Wrapper;
+
+/***/ },
+/* 165 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(158);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Wrapper = _react2.default.createClass({
+	    displayName: 'Wrapper',
+	    getInitialState: function getInitialState() {
+	        return {
+	            item: null
+	        };
+	    },
+	    render: function render() {
+	        return _react2.default.createElement('img', { src: this.props.item });
+	    }
+	});
+
+	exports.default = Wrapper;
 
 /***/ }
 /******/ ]);

@@ -10,6 +10,7 @@ const Theater = React.createClass({
 
     getDefaultProps() {
         return {
+            isOpen: false,
             onNext: null,
             onPrev: null,
             onOpen: null,
@@ -27,15 +28,18 @@ const Theater = React.createClass({
     },
 
     render() {
+        if (!this.props.isOpen) return null;
+
         return (
             <div className="theater-wrapper">
                 <div className="theater-backdrop" onClick={this._handleClose}>
-                    <a className="theater-close-button" role="button" onClick={this._handleClose}>&times;</a>
-                    <div className="theater-content-wrapper">
+
+                    <div className="theater-content-wrapper" onClick={this._handleStopPropagation} >
+                        <a className="theater-close-button" role="button" onClick={this._handleClose}>&times;</a>
                         <div className="theater-content">
                             {this._getPrevButtonHtml()}
                             {this._getNextButtonHtml()}
-                            ...
+                            {React.cloneElement(this.props.children, {item: this.props.items[this.props.currentItem]})}
                         </div>
                         <div className="theater-side-content">
                             ...
@@ -91,6 +95,10 @@ const Theater = React.createClass({
                 </svg>
             </a>
         );
+    },
+
+    _handleStopPropagation(e) {
+        e.stopPropagation();
     }
 });
 

@@ -1,6 +1,8 @@
 /* VARIABLES */
 
-$theater-backdrop-bg-color: rgba(0, 0, 0, 0.8) !default;
+$theater-backdrop-bg-color: rgba(0, 0, 0, .9) !default;
+$theater-nav-button-color: white !default;
+$theater-content-bg-color: black !default;
 
 /* THEATER STYLES */
 
@@ -32,26 +34,40 @@ $theater-backdrop-bg-color: rgba(0, 0, 0, 0.8) !default;
 
     .theater-content-wrapper {
       max-width: 90%;
-      max-height: 90%;
-      min-width: 1000px;
+      max-height: 800px;
+      min-width: 900px;
       min-height: 500px;
       background: blue;
-      width: 2000px;
-      height: 600px;
 
       .theater-content, .theater-side-content {
-        height: inherit;
+        height: 100%;
         float: left;
+        min-height: inherit;
+        max-height: inherit;
       }
 
       .theater-content,{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
         width: 75%;
-        background: red;
+        background: $theater-content-bg-color;
+        overflow: hidden;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+
+        img {
+          max-width: 100%;
+          max-height: inherit;
+        }
       }
 
       .theater-side-content {
         width: 25%;
-        background: yellow;
+        background: #f4ff10;
       }
     }
   }
@@ -63,20 +79,22 @@ svg {
 }
 
 .theater-nav-button {
+  display: flex;
+  align-items: center;
   cursor: pointer;
   position: absolute;
-  top: 50%;
-  margin-top: -45px;
-  margin-left: -35px;
-  width: 70px;
-  height: 90px;
+  stroke: $theater-nav-button-color;
+  height: 100%;
+  width: 50%;
 
   &.theater-nav-button--prev {
-    left: 42%;
+    left: 0;
+    justify-content: flex-start;
   }
 
   &.theater-nav-button--next {
-    left: 58%;
+    right: 0;
+    justify-content: flex-end;
   }
 
   &:hover, &:focus {
@@ -87,5 +105,5 @@ svg {
 }
 
 polyline {
-  transition: all 250ms ease-in-out;
+  transition: all 200ms ease-in-out;
 }
