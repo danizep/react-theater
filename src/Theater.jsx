@@ -14,35 +14,44 @@ const Theater = React.createClass({
             onNext: null,
             onPrev: null,
             onOpen: null,
-            onClose: null
+            onClose: null,
+            preloadEnabled: true,
+            disableScroll: true
         }
     },
 
-    componentWillMount() {
-    },
+    componentWillUpdate(nextProps) {
+        if (!this.props.isOpen && nextProps.isOpen) {
+            this._handleToggleDisableScroll();
+            window.addEventListener('keyup', this._handleKeyPress);
+        }
 
-    componentWillUnmount() {
-    },
-
-    componentDidMount() {
+        if(this.props.isOpen && !nextProps.isOpen) {
+            this._handleToggleDisableScroll();
+            window.removeEventListener('keyup', this._handleKeyPress);
+        }
     },
 
     render() {
         if (!this.props.isOpen) return null;
+        let {content, sideContent} = this._splitChildren();
+
+        console.log(content);
+        console.log(sideContent);
 
         return (
             <div className="theater-wrapper">
+                {this._getPreloadHtml(content)}
                 <div className="theater-backdrop" onClick={this._handleClose}>
-
                     <div className="theater-content-wrapper" onClick={this._handleStopPropagation} >
                         <a className="theater-close-button" role="button" onClick={this._handleClose}>&times;</a>
                         <div className="theater-content">
                             {this._getPrevButtonHtml()}
                             {this._getNextButtonHtml()}
-                            {React.cloneElement(this.props.children, {item: this.props.items[this.props.currentItem]})}
+                            {React.cloneElement(content, {item: this.props.items[this.props.currentItem]})}
                         </div>
                         <div className="theater-side-content">
-                            ...
+                            {React.cloneElement(sideContent, {item: this.props.currentItem})}
                         </div>
                     </div>
                 </div>
@@ -50,13 +59,11 @@ const Theater = React.createClass({
         );
     },
 
-    _handleNext(e) {
-        e.stopPropagation();
+    _handleNext() {
         this._runCallback('onNext', {});
     },
 
-    _handlePrev(e) {
-        e.stopPropagation();
+    _handlePrev() {
         this._runCallback('onPrev', {});
     },
 
@@ -97,8 +104,65 @@ const Theater = React.createClass({
         );
     },
 
+    _getPreloadHtml(content) {
+        if (this.props.preloadEnabled) {
+            return (
+                <div className="theater-preload">
+                    {React.cloneElement(content, {item: this.props.items[this.props.currentItem - 1]})}
+                    {React.cloneElement(content, {item: this.props.items[this.props.currentItem + 1]})}
+                </div>
+            )
+        }
+    },
+
     _handleStopPropagation(e) {
-        e.stopPropagation();
+        e.stopPropagation()
+    },
+
+    _handleKeyPress(event) {
+        if(!this.props.isOpen) return false;
+
+        switch(event.keyCode) {
+            case 39:
+                //next
+                this._handleNext();
+                break;
+            case 37:
+                //prev
+                this._handlePrev();
+                break;
+            case 27:
+                //close
+                this._handleClose();
+                break;
+        }
+    },
+
+    _handleToggleDisableScroll() {
+        const body = document.querySelector('body');
+
+        if (body.classList.contains('theater--opened')) {
+            body.classList.remove('theater--opened');
+        } else {
+            body.classList.add('theater--opened');
+        }
+    },
+
+    _splitChildren() {
+        let children = {};
+
+        React.Children.forEach(this.props.children, function (child) {
+            if (typeof child !== 'string' ) {
+                if (child.props.content) {
+                    children.content = child;
+                } else {
+                    children.sideContent = child;
+                }
+            }
+
+        }, this);
+
+        return children;
     }
 });
 

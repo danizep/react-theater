@@ -11,4 +11,9 @@ h1, p {
 
 img.cat {
     max-height: 200px;
+    cursor: pointer;
+}
+
+img.cat:last-child {
+    display: none;
 }

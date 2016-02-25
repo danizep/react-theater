@@ -9,11 +9,19 @@ $theater-content-bg-color: black !default;
 .theater-wrapper {
   margin: 0;
   padding: 0;
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100%;
   top: 0;
   left: 0;
+
+  .theater-preload {
+    position: absolute;
+    left: -99999px;
+    top: -99999px;
+    max-width: 5000px;
+    max-height: 10000px;
+  }
 
   .theater-backdrop {
     background: $theater-backdrop-bg-color;
@@ -71,6 +79,10 @@ $theater-content-bg-color: black !default;
       }
     }
   }
+}
+
+.theater--opened {
+  overflow: hidden;
 }
 
 /* ARROW */

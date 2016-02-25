@@ -16,7 +16,8 @@ const cats = [
     "http://cdn.grumpycats.com/wp-content/uploads/2012/10/DSC04268.jpg",
     "http://cdn.playbuzz.com/cdn/670de221-f178-4df3-85c9-12e20afdeb4c/0c86b6e0-2a69-4418-8774-358cb3d53007.jpg",
     "http://i.telegraph.co.uk/multimedia/archive/03344/Grumpycat_3344645b.jpg",
-    "http://pixel.nymag.com/imgs/daily/intelligencer/2014/12/08/08-grumpy-cat.w1200.h630.jpg"
+    "http://pixel.nymag.com/imgs/daily/intelligencer/2014/12/08/08-grumpy-cat.w1200.h630.jpg",
+    "http://www.bonaelamour.com/wp-content/uploads/2014/09/SARA-SAMPAIO_BONAELAMOUR1.jpg"
 ];
 
 ReactDOM.render(

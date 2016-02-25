@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 
 import Theater from '../src/Theater';
 import TheaterImage from '../src/TheaterImage.jsx';
+import TheaterSideContent from '../src/TheaterSideContent.jsx';
 
 const Wrapper = React.createClass({
     getInitialState() {
@@ -14,25 +15,16 @@ const Wrapper = React.createClass({
         }
     },
 
-    componentWillMount() {
-    },
-
-    componentWillUnmount() {
-    },
-
-    componentDidMount() {
-    },
-
     render() {
         return (
             <div>
-                <Theater {...this.state} onClose={this._handleClose} onNext={this._handleNext} onPrev={this._handlePrev}>
-                    <TheaterImage />
+                <Theater {...this.state} onClose={this._handleClose} onNext={this._handleNext} onPrev={this._handlePrev} preloadEnabled={false}>
+                    <TheaterImage content={true}/>
+                    <TheaterSideContent content={false}/>
                 </Theater>
                 {this.props.items.map((item, key) => {
-                    console.log(key, item);
                     return (
-                        <img src={item}
+                        <img src={item}s
                              className="cat"
                              key={`cat${key}`}
                              onClick={this._handleOpen.bind(this, key)} />

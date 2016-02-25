@@ -2,7 +2,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const TheaterImage = React.createClass({
+const TheaterSideContent = React.createClass({
+
     getInitialState() {
         return {
             item: null
@@ -11,10 +12,12 @@ const TheaterImage = React.createClass({
 
     render() {
         return (
-            <img src={this.props.item} />
+            <div>
+                comments => {this.props.item}
+            </div>
         );
     }
 });
 
-export default TheaterImage;
+export default TheaterSideContent;
 
